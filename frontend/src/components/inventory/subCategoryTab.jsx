@@ -15,13 +15,12 @@ const SubCategoryTab = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // form state
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [status, setStatus] = useState("Active");
   const [editId, setEditId] = useState(null);
 
-  // search & filter
+
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
@@ -36,12 +35,10 @@ const SubCategoryTab = () => {
     fetchData();
   }, []);
 
-  // prevent background scroll when modal opens
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
 
-  // ADD / UPDATE SUB-CATEGORY
   const saveSubCategory = async () => {
     if (!name.trim() || !category) return;
 
@@ -70,7 +67,7 @@ const SubCategoryTab = () => {
     fetchData();
   };
 
-  // OPEN EDIT
+
   const openEdit = (sc) => {
     setEditId(sc._id);
     setName(sc.name);
@@ -79,14 +76,13 @@ const SubCategoryTab = () => {
     setOpen(true);
   };
 
-  // DELETE
+
   const deleteSubCategory = async (id) => {
     if (!window.confirm("Delete this sub-category?")) return;
     await api.delete(`/sub-category/${id}`);
     fetchData();
   };
 
-  // APPLY SEARCH + FILTER
   const filteredSubCategories = subCategories.filter((sc) => {
     const matchName = sc.name
       .toLowerCase()
@@ -100,7 +96,7 @@ const SubCategoryTab = () => {
 
   return (
     <div className="space-y-6">
-      {/* HEADER */}
+
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold flex items-center gap-2">
           <FaLayerGroup /> Sub-Category Management
@@ -120,7 +116,7 @@ const SubCategoryTab = () => {
         </button>
       </div>
 
-      {/* SEARCH & FILTER */}
+
       <div className="flex items-center gap-4">
         <div className="relative">
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
@@ -143,83 +139,82 @@ const SubCategoryTab = () => {
         </select>
       </div>
 
-      {/* TABLE */}
+
       <div className="bg-white rounded-xl shadow">
-  <div className="max-h-[60vh] overflow-y-auto overflow-x-auto scrollbar-hide">
-    <table className="min-w-[1200px] w-full text-sm border-collapse">
-          <thead className="bg-gray-900 text-white">
-            <tr>
-              <th className="p-4 text-left w-16">#</th>
-              <th className="p-4 text-left">Category</th>
-              <th className="p-4 text-left">Sub-Category</th>
-              <th className="p-4 text-left">Status</th>
-              <th className="p-4 text-left">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredSubCategories.length === 0 ? (
+        <div className="max-h-[60vh] overflow-y-auto overflow-x-auto scrollbar-hide">
+          <table className="min-w-[1200px] w-full text-sm border-collapse">
+            <thead className="bg-gray-900 text-white">
               <tr>
-                <td colSpan="5" className="text-center py-12 text-gray-500">
-                  No sub-categories found
-                </td>
+                <th className="p-4 text-left w-16">#</th>
+                <th className="p-4 text-left">Category</th>
+                <th className="p-4 text-left">Sub-Category</th>
+                <th className="p-4 text-left">Status</th>
+                <th className="p-4 text-left">Actions</th>
               </tr>
-            ) : (
-              filteredSubCategories.map((sc, index) => (
-                <tr
-                  key={sc._id}
-                  className="hover:bg-blue-50 transition"
-                >
-                  <td className="p-4 text-gray-500 font-medium">
-                    {index + 1}
-                  </td>
+            </thead>
 
-                  <td className="p-4 font-medium text-gray-800">
-                    {sc.category?.name || "-"}
-                  </td>
-
-                  <td className="p-4 text-gray-700">
-                    {sc.name}
-                  </td>
-
-                  <td className="p-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        sc.status === "Active"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {sc.status}
-                    </span>
-                  </td>
-
-                  <td className="p-4">
-                    <div className="flex gap-3">
-                      <button
-                        onClick={() => openEdit(sc)}
-                        className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
-                      >
-                        <FaEdit size={18} />
-                      </button>
-
-                      <button
-                        onClick={() => deleteSubCategory(sc._id)}
-                        className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
-                      >
-                        <FaTrash size={18} />
-                      </button>
-                    </div>
+            <tbody>
+              {filteredSubCategories.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-12 text-gray-500">
+                    No sub-categories found
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              ) : (
+                filteredSubCategories.map((sc, index) => (
+                  <tr
+                    key={sc._id}
+                    className="hover:bg-blue-50 transition"
+                  >
+                    <td className="p-4 text-gray-500 font-medium">
+                      {index + 1}
+                    </td>
+
+                    <td className="p-4 font-medium text-gray-800">
+                      {sc.category?.name || "-"}
+                    </td>
+
+                    <td className="p-4 text-gray-700">
+                      {sc.name}
+                    </td>
+
+                    <td className="p-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${sc.status === "Active"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                          }`}
+                      >
+                        {sc.status}
+                      </span>
+                    </td>
+
+                    <td className="p-4">
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => openEdit(sc)}
+                          className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
+                        >
+                          <FaEdit size={18} />
+                        </button>
+
+                        <button
+                          onClick={() => deleteSubCategory(sc._id)}
+                          className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
+                        >
+                          <FaTrash size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* ADD / EDIT MODAL */}
+
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white w-full max-w-md rounded-xl shadow-xl p-6 relative">

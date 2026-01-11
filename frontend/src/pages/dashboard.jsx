@@ -3,7 +3,6 @@ import Sidebar from "../components/sidebar";
 import api from "../services/api";
 import { mockUsers, mockDrivers, mockOrders } from "../data/mockData";
 
-// ICONS
 import {
   FaUsers,
   FaTruck,
@@ -11,7 +10,6 @@ import {
   FaBoxOpen,
 } from "react-icons/fa";
 
-// CHARTS
 import {
   BarChart,
   Bar,
@@ -72,29 +70,16 @@ const Dashboard = () => {
     <div className="flex">
       <Sidebar />
 
-      {/* MAIN CONTENT */}
       <div className="flex-1 bg-gray-100 min-h-screen p-4 sm:p-6 pt-16 md:pt-6">
         <h1 className="text-xl sm:text-2xl font-bold mb-6">
           Dashboard
         </h1>
 
-        {/* ===== RESPONSIVE CARDS ===== */}
-        <div className="
-          grid gap-6 mb-8
-          grid-cols-1
-          sm:grid-cols-2
-          lg:grid-cols-4
-        ">
+        <div className="grid gap-6 mb-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {cards.map((card, i) => (
             <div
               key={i}
-              className={`
-                bg-gradient-to-r ${card.color}
-                text-white p-5 rounded-xl shadow-lg
-                flex items-center justify-between
-                transition hover:scale-[1.02]
-              `}
-            >
+              className={`bg-gradient-to-r ${card.color} text-white p-5 rounded-xl shadow-lg flex items-center justify-between transition hover:scale-[1.02]`}>
               <div>
                 <h3 className="text-sm opacity-80">
                   {card.title}
@@ -111,13 +96,7 @@ const Dashboard = () => {
           ))}
         </div>
 
-        {/* ===== RESPONSIVE CHARTS ===== */}
-        <div className="
-          grid gap-6
-          grid-cols-1
-          lg:grid-cols-2
-        ">
-          {/* BAR CHART */}
+        <div className="grid gap-6 grid-cols-1 lg:grid-cols-2">
           <div className="bg-white p-4 rounded-xl shadow">
             <h2 className="font-semibold mb-4">
               Overall Count
@@ -132,7 +111,6 @@ const Dashboard = () => {
             </ResponsiveContainer>
           </div>
 
-          {/* PIE CHART */}
           <div className="bg-white p-4 rounded-xl shadow">
             <h2 className="font-semibold mb-4">
               Order Status

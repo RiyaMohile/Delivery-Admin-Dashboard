@@ -12,10 +12,8 @@ app.use(cors());
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 
-// PUBLIC ROUTE
 app.use("/api/admin", require("./routes/authRoute"));
 
-// PROTECTED ROUTES (ADMIN ONLY)
 app.use("/api/category", adminAuth, require("./routes/categoryRoute"));
 app.use("/api/sub-category", adminAuth, require("./routes/subCategoryRoute"));
 app.use("/api/product", adminAuth, require("./routes/productRoute"));

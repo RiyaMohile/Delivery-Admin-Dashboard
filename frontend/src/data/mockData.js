@@ -1,4 +1,3 @@
-// ================= USERS =================
 export const mockUsers = [
   {
     id: "u1",
@@ -26,7 +25,7 @@ export const mockUsers = [
   },
 ];
 
-// ================= DRIVERS =================
+
 export const mockDrivers = [
   {
     id: "d1",
@@ -50,7 +49,7 @@ export const mockDrivers = [
   },
 ];
 
-// ================= ORDERS =================
+
 export const mockOrders = [
   {
     id: "ORD-101",

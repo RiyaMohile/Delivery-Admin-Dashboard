@@ -21,17 +21,8 @@ const Login = () => {
   };
 
   return (
-    <div className="
-      min-h-screen flex items-center justify-center
-      bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900
-      px-4
-    ">
-      <div className="
-        w-full max-w-md
-        bg-white rounded-2xl shadow-2xl
-        p-6 sm:p-8
-      ">
-        {/* HEADER */}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-4">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl p-6 sm:p-8">
         <div className="flex flex-col items-center mb-6">
           <div className="bg-yellow-500 text-white p-4 rounded-full mb-3">
             <FaLock size={22} />
@@ -43,8 +34,6 @@ const Login = () => {
             Sign in to access the admin dashboard
           </p>
         </div>
-
-        {/* FORM */}
         <form onSubmit={handleLogin} className="space-y-4">
           <div>
             <label className="text-sm text-gray-600">Email</label>
@@ -52,11 +41,7 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="
-                w-full mt-1 px-4 py-2 rounded-lg
-                bg-gray-100 border
-                focus:outline-none focus:ring-2 focus:ring-yellow-500
-              "
+              className="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-yellow-500"
               placeholder="admin@gmail.com"
               required
             />
@@ -68,11 +53,7 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="
-                w-full mt-1 px-4 py-2 rounded-lg
-                bg-gray-100 border
-                focus:outline-none focus:ring-2 focus:ring-yellow-500
-              "
+              className="w-full mt-1 px-4 py-2 rounded-lg bg-gray-100 border focus:outline-none focus:ring-2 focus:ring-yellow-500"
               placeholder="••••••••"
               required
             />
@@ -80,11 +61,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="
-              w-full bg-yellow-500 text-white py-2 rounded-lg
-              font-semibold hover:bg-yellow-600 transition
-            "
-          >
+            className="w-full bg-yellow-500 text-white py-2 rounded-lg font-semibold hover:bg-yellow-600 transition">
             Login
           </button>
         </form>

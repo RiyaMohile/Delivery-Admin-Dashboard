@@ -14,12 +14,11 @@ const CategoryTab = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // form state
+
   const [name, setName] = useState("");
   const [status, setStatus] = useState("Active");
   const [editId, setEditId] = useState(null);
 
-  // search & filter
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
@@ -32,12 +31,10 @@ const CategoryTab = () => {
     fetchData();
   }, []);
 
-  // prevent background scroll when modal opens
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
 
-  // ADD / UPDATE CATEGORY
   const saveCategory = async () => {
     if (!name.trim()) return;
 
@@ -70,7 +67,6 @@ const CategoryTab = () => {
     fetchData();
   };
 
-  // APPLY SEARCH + FILTER
   const filteredCategories = categories.filter((c) => {
     const matchName = c.name
       .toLowerCase()
@@ -84,7 +80,6 @@ const CategoryTab = () => {
 
   return (
     <div className="space-y-6">
-      {/* HEADER */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold flex items-center gap-2">
           <FaTags /> Category Management
@@ -103,7 +98,6 @@ const CategoryTab = () => {
         </button>
       </div>
 
-      {/* SEARCH & FILTER */}
       <div className="flex items-center gap-4">
         <div className="relative">
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
@@ -126,74 +120,72 @@ const CategoryTab = () => {
         </select>
       </div>
 
-{/* CATEGORY TABLE */}
-<div className="bg-white rounded-xl shadow">
-  <div className="max-h-[60vh] overflow-y-auto overflow-x-auto scrollbar-hide">
-    <table className="min-w-[1200px] w-full text-sm border-collapse">
-      <thead className="bg-gray-800 text-white sticky top-0 z-10">
-        <tr>
-          <th className="p-4 text-left w-16">#</th>
-          <th className="p-4 text-left">Category Name</th>
-          <th className="p-4 text-left">Status</th>
-          <th className="p-4 text-left">Actions</th>
-        </tr>
-      </thead>
+      <div className="bg-white rounded-xl shadow">
+        <div className="max-h-[60vh] overflow-y-auto overflow-x-auto scrollbar-hide">
+          <table className="min-w-[1200px] w-full text-sm border-collapse">
+            <thead className="bg-gray-800 text-white sticky top-0 z-10">
+              <tr>
+                <th className="p-4 text-left w-16">#</th>
+                <th className="p-4 text-left">Category Name</th>
+                <th className="p-4 text-left">Status</th>
+                <th className="p-4 text-left">Actions</th>
+              </tr>
+            </thead>
 
-      <tbody>
-        {filteredCategories.length === 0 ? (
-          <tr>
-            <td colSpan="4" className="text-center py-12 text-gray-500">
-              No categories found
-            </td>
-          </tr>
-        ) : (
-          filteredCategories.map((c, index) => (
-            <tr key={c._id} className="hover:bg-blue-50 transition">
-              <td className="p-4 text-gray-500">{index + 1}</td>
-              <td className="p-4 font-medium">{c.name}</td>
-              <td className="p-4">
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                    c.status === "Active"
-                      ? "bg-green-100 text-green-700"
-                      : "bg-red-100 text-red-700"
-                  }`}
-                >
-                  {c.status}
-                </span>
-              </td>
-              <td className="p-4">
-                <div className="flex gap-3">
-                  <button
-  onClick={() => openEdit(c)}
-  className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
-  title="Edit"
->
-  <FaEdit size={18} />
-</button>
+            <tbody>
+              {filteredCategories.length === 0 ? (
+                <tr>
+                  <td colSpan="4" className="text-center py-12 text-gray-500">
+                    No categories found
+                  </td>
+                </tr>
+              ) : (
+                filteredCategories.map((c, index) => (
+                  <tr key={c._id} className="hover:bg-blue-50 transition">
+                    <td className="p-4 text-gray-500">{index + 1}</td>
+                    <td className="p-4 font-medium">{c.name}</td>
+                    <td className="p-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${c.status === "Active"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                          }`}
+                      >
+                        {c.status}
+                      </span>
+                    </td>
+                    <td className="p-4">
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => openEdit(c)}
+                          className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
+                          title="Edit"
+                        >
+                          <FaEdit size={18} />
+                        </button>
 
-<button
-  onClick={() => deleteCategory(c._id)}
-  className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
-  title="Delete"
->
-  <FaTrash size={18} />
-</button>
+                        <button
+                          onClick={() => deleteCategory(c._id)}
+                          className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
+                          title="Delete"
+                        >
+                          <FaTrash size={18} />
+                        </button>
 
-                </div>
-              </td>
-            </tr>
-          ))
-        )}
-      </tbody>
-    </table>
-  </div>
-</div>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
 
 
 
 
-      {/* ADD / EDIT MODAL */}
+
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white w-full max-w-md rounded-xl shadow-xl p-6 relative">

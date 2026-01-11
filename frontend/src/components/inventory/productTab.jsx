@@ -16,7 +16,7 @@ const ProductTab = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // form
+
   const [form, setForm] = useState({
     name: "",
     category: "",
@@ -28,8 +28,6 @@ const ProductTab = () => {
   });
 
   const [editId, setEditId] = useState(null);
-
-  // search & filter
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
 
@@ -44,7 +42,7 @@ const ProductTab = () => {
     fetchProducts();
   }, []);
 
-  // prevent background scroll
+
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "auto";
   }, [open]);
@@ -53,7 +51,6 @@ const ProductTab = () => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  // ADD / UPDATE PRODUCT
   const saveProduct = async () => {
     if (!form.name || !form.category || !form.subCategory) return;
 
@@ -81,7 +78,6 @@ const ProductTab = () => {
     fetchProducts();
   };
 
-  // OPEN EDIT
   const openEdit = (p) => {
     setEditId(p._id);
     setForm({
@@ -96,14 +92,13 @@ const ProductTab = () => {
     setOpen(true);
   };
 
-  // DELETE
+
   const deleteProduct = async (id) => {
     if (!window.confirm("Delete this product?")) return;
     await api.delete(`/product/${id}`);
     fetchProducts();
   };
 
-  // SEARCH + FILTER
   const filteredProducts = products.filter((p) => {
     const matchSearch =
       p.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -117,7 +112,7 @@ const ProductTab = () => {
 
   return (
     <div className="space-y-6">
-      {/* HEADER */}
+
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold flex items-center gap-2">
           <FaBoxOpen /> Product Management
@@ -143,7 +138,7 @@ const ProductTab = () => {
         </button>
       </div>
 
-      {/* SEARCH & FILTER */}
+
       <div className="flex items-center gap-4">
         <div className="relative">
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
@@ -166,77 +161,75 @@ const ProductTab = () => {
         </select>
       </div>
 
-      {/* TABLE */}
       <div className="bg-white rounded-xl shadow">
-  <div className="max-h-[60vh] overflow-y-auto overflow-x-auto scrollbar-hide">
-    <table className="min-w-[1200px] w-full text-sm border-collapse">
-          <thead className="bg-gray-900 text-white">
-            <tr>
-              <th className="p-4 text-left w-14">#</th>
-              <th className="p-4 text-left">Product</th>
-              <th className="p-4 text-left">Category</th>
-              <th className="p-4 text-left">Sub-Category</th>
-              <th className="p-4 text-left">Brand</th>
-              <th className="p-4 text-left">Unit</th>
-              <th className="p-4 text-left">Status</th>
-              <th className="p-4 text-left">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {filteredProducts.length === 0 ? (
+        <div className="max-h-[60vh] overflow-y-auto overflow-x-auto scrollbar-hide">
+          <table className="min-w-[1200px] w-full text-sm border-collapse">
+            <thead className="bg-gray-900 text-white">
               <tr>
-                <td colSpan="8" className="text-center py-12 text-gray-500">
-                  No products found
-                </td>
+                <th className="p-4 text-left w-14">#</th>
+                <th className="p-4 text-left">Product</th>
+                <th className="p-4 text-left">Category</th>
+                <th className="p-4 text-left">Sub-Category</th>
+                <th className="p-4 text-left">Brand</th>
+                <th className="p-4 text-left">Unit</th>
+                <th className="p-4 text-left">Status</th>
+                <th className="p-4 text-left">Actions</th>
               </tr>
-            ) : (
-              filteredProducts.map((p, index) => (
-                <tr key={p._id} className="hover:bg-blue-50 transition">
-                  <td className="p-4 text-gray-500">{index + 1}</td>
-                  <td className="p-4 font-medium">{p.name}</td>
-                  <td className="p-4">{p.category?.name}</td>
-                  <td className="p-4">{p.subCategory?.name}</td>
-                  <td className="p-4">{p.brand}</td>
-                  <td className="p-4 uppercase">{p.unit}</td>
-                  <td className="p-4">
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                        p.status === "Active"
-                          ? "bg-green-100 text-green-700"
-                          : "bg-red-100 text-red-700"
-                      }`}
-                    >
-                      {p.status}
-                    </span>
-                  </td>
+            </thead>
 
-                  <td className="p-4">
-                    <div className="flex gap-3">
-                      <button
-                        onClick={() => openEdit(p)}
-                        className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
-                      >
-                        <FaEdit size={18} />
-                      </button>
-
-                      <button
-                        onClick={() => deleteProduct(p._id)}
-                        className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
-                      >
-                        <FaTrash size={18} />
-                      </button>
-                    </div>
+            <tbody>
+              {filteredProducts.length === 0 ? (
+                <tr>
+                  <td colSpan="8" className="text-center py-12 text-gray-500">
+                    No products found
                   </td>
                 </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
+              ) : (
+                filteredProducts.map((p, index) => (
+                  <tr key={p._id} className="hover:bg-blue-50 transition">
+                    <td className="p-4 text-gray-500">{index + 1}</td>
+                    <td className="p-4 font-medium">{p.name}</td>
+                    <td className="p-4">{p.category?.name}</td>
+                    <td className="p-4">{p.subCategory?.name}</td>
+                    <td className="p-4">{p.brand}</td>
+                    <td className="p-4 uppercase">{p.unit}</td>
+                    <td className="p-4">
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${p.status === "Active"
+                            ? "bg-green-100 text-green-700"
+                            : "bg-red-100 text-red-700"
+                          }`}
+                      >
+                        {p.status}
+                      </span>
+                    </td>
+
+                    <td className="p-4">
+                      <div className="flex gap-3">
+                        <button
+                          onClick={() => openEdit(p)}
+                          className="p-2 rounded-full bg-blue-100 text-blue-600 hover:bg-blue-200"
+                        >
+                          <FaEdit size={18} />
+                        </button>
+
+                        <button
+                          onClick={() => deleteProduct(p._id)}
+                          className="p-2 rounded-full bg-red-100 text-red-600 hover:bg-red-200"
+                        >
+                          <FaTrash size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      {/* ADD / EDIT MODAL */}
+
       {open && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white w-full max-w-4xl rounded-xl shadow-xl p-6 relative">
