@@ -15,7 +15,6 @@ const Sidebar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
-  // Close sidebar on route change (mobile)
   useEffect(() => {
     setOpen(false);
   }, [location.pathname]);
@@ -35,7 +34,6 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* ===== Mobile Top Bar ===== */}
       <div className="md:hidden fixed top-0 left-0 right-0 z-40 h-14 bg-gray-900 text-white flex items-center justify-between px-4">
         <h2 className="font-bold text-lg">Admin Panel</h2>
         <button onClick={() => setOpen(true)}>
@@ -43,20 +41,13 @@ const Sidebar = () => {
         </button>
       </div>
 
-      {/* ===== Overlay ===== */}
       {open && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={() => setOpen(false)}
-        />
+        <div className="fixed inset-0 bg-black/50 z-40 md:hidden" onClick={() => setOpen(false)} />
       )}
 
-      {/* ===== Sidebar ===== */}
       <aside
         className={`fixed md:static z-50 top-0 left-0 h-screen w-64 bg-gray-900 text-white flex flex-col transition-transform duration-300
-        ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}
-      >
-        {/* Header */}
+        ${open ? "translate-x-0" : "-translate-x-full"} md:translate-x-0`}>
         <div className="p-5 text-2xl font-bold border-b border-gray-700 flex justify-between items-center">
           Admin Panel
           <button className="md:hidden" onClick={() => setOpen(false)}>
@@ -64,50 +55,29 @@ const Sidebar = () => {
           </button>
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
           <NavLink to="/" className={linkClass} onClick={() => setOpen(false)}>
             <FaTachometerAlt /> Dashboard
           </NavLink>
 
-          <NavLink
-            to="/inventory"
-            className={linkClass}
-            onClick={() => setOpen(false)}
-          >
+          <NavLink to="/inventory" className={linkClass} onClick={() => setOpen(false)} >
             <FaBoxes /> Inventory
           </NavLink>
 
-          <NavLink
-            to="/users"
-            className={linkClass}
-            onClick={() => setOpen(false)}
-          >
+          <NavLink to="/users" className={linkClass} onClick={() => setOpen(false)}>
             <FaUsers /> Users
           </NavLink>
 
-          <NavLink
-            to="/drivers"
-            className={linkClass}
-            onClick={() => setOpen(false)}
-          >
+          <NavLink to="/drivers" className={linkClass} onClick={() => setOpen(false)} >
             <FaTruck /> Drivers
           </NavLink>
 
-          <NavLink
-            to="/orders"
-            className={linkClass}
-            onClick={() => setOpen(false)}
-          >
+          <NavLink to="/orders" className={linkClass} onClick={() => setOpen(false)}>
             <FaShoppingCart /> Orders
           </NavLink>
         </nav>
 
-        {/* Logout */}
-        <button
-          onClick={handleLogout}
-          className="mt-auto flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-500 border-t border-gray-700"
-        >
+        <button onClick={handleLogout} className="mt-auto flex items-center gap-3 px-4 py-3 text-red-400 hover:text-red-500 border-t border-gray-700">
           <FaSignOutAlt /> Logout
         </button>
       </aside>
